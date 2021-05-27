@@ -131,6 +131,7 @@ SRC_SPR_CXX += \
 SRC_APP_CXX += \
 	ei_main.cpp \
 	$(notdir $(wildcard edge_impulse/edge-impulse-sdk/porting/sony/*.cpp)) \
+	$(notdir $(wildcard edge_impulse/edge-impulse-sdk/dsp/dct/*.cpp)) \
 	$(notdir $(wildcard edge_impulse/edge-impulse-sdk/dsp/kissfft/*.cpp)) \
 	$(notdir $(wildcard edge_impulse/ingestion-sdk-platform/sony-spresense/*.cpp)) \
 	$(notdir $(wildcard edge_impulse/ingestion-sdk-c/*.cpp)) \
@@ -152,22 +153,23 @@ SRC_APP_C += \
 	$(notdir $(wildcard edge_impulse/mbedtls_hmac_sha256_sw/mbedtls/src/*.c)) \
 
 	
-VPATH += edge_impulse/edge-impulse-sdk/porting/sony
-VPATH += edge_impulse/ingestion-sdk-platform/sony-spresense	
-VPATH += edge_impulse/ingestion-sdk-c
-VPATH += edge_impulse/repl
-VPATH += edge_impulse/QCBOR/src
-VPATH += edge_impulse/edge-impulse-sdk/dsp/kissfft
-VPATH += edge_impulse/edge-impulse-sdk/tensorflow/lite/kernels
-VPATH += edge_impulse/edge-impulse-sdk/tensorflow/lite/kernels/internal
-VPATH += edge_impulse/edge-impulse-sdk/tensorflow/lite/micro
-VPATH += edge_impulse/edge-impulse-sdk/tensorflow/lite/micro/kernels
-VPATH += edge_impulse/edge-impulse-sdk/tensorflow/lite/micro/memory_planner
-VPATH += edge_impulse/mbedtls_hmac_sha256_sw/mbedtls/src
-VPATH += edge_impulse/edge-impulse-sdk/CMSIS/DSP/Source/TransformFunctions
-VPATH += edge_impulse/edge-impulse-sdk/CMSIS/DSP/Source/CommonTables
-VPATH += edge_impulse/edge-impulse-sdk/CMSIS/DSP/Source/TransformFunctions
-VPATH += edge_impulse/tflite-model
+VPATH += edge_impulse/edge-impulse-sdk/porting/sony \
+	edge_impulse/ingestion-sdk-platform/sony-spresense \
+	edge_impulse/ingestion-sdk-c \
+	edge_impulse/repl \
+	edge_impulse/QCBOR/src \
+	edge_impulse/edge-impulse-sdk/dsp/dct \
+	edge_impulse/edge-impulse-sdk/dsp/kissfft \
+	edge_impulse/edge-impulse-sdk/tensorflow/lite/kernels \
+	edge_impulse/edge-impulse-sdk/tensorflow/lite/kernels/internal \
+	edge_impulse/edge-impulse-sdk/tensorflow/lite/micro \
+	edge_impulse/edge-impulse-sdk/tensorflow/lite/micro/kernels \
+	edge_impulse/edge-impulse-sdk/tensorflow/lite/micro/memory_planner \
+	edge_impulse/mbedtls_hmac_sha256_sw/mbedtls/src \
+	edge_impulse/edge-impulse-sdk/CMSIS/DSP/Source/TransformFunctions \
+	edge_impulse/edge-impulse-sdk/CMSIS/DSP/Source/CommonTables \
+	edge_impulse/edge-impulse-sdk/CMSIS/DSP/Source/TransformFunctions \
+	edge_impulse/tflite-model \
 	
 OBJ = $(addprefix $(BUILD)/spr/, $(SRC_SPR_CXX:.cpp=.o))
 OBJ += $(addprefix $(BUILD)/app/, $(SRC_APP_CXX:.cpp=.o))

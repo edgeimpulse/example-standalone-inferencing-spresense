@@ -172,6 +172,7 @@ VPATH += edge_impulse/edge-impulse-sdk/porting/sony \
 	edge_impulse/edge-impulse-sdk/tensorflow/lite/micro \
 	edge_impulse/edge-impulse-sdk/tensorflow/lite/micro/kernels \
 	edge_impulse/edge-impulse-sdk/tensorflow/lite/micro/memory_planner \
+	edge_impulse/edge-impulse-sdk/tensorflow/lite/c/ \
 	edge_impulse/mbedtls_hmac_sha256_sw/mbedtls/src \
 	edge_impulse/edge-impulse-sdk/CMSIS/DSP/Source/TransformFunctions \
 	edge_impulse/edge-impulse-sdk/CMSIS/DSP/Source/CommonTables \

@@ -12,18 +12,20 @@ SPRESENSE_SDK = spresense-exported-sdk
 # Platforms are: Linux, Darwin, MSYS, CYGWIN
 PLATFORM := $(firstword $(subst _, ,$(shell uname -s 2>/dev/null)))
 
+# TODO if SERIAL is defined as an environment variable, use that instead
 ifeq ($(PLATFORM),Darwin)
   # macOS
   MKSPK = mkspk/mkspk
+  SERIAL ?= /dev/cu.SLAB_USBtoUART
 else ifeq ($(PLATFORM),Linux)
   # Linux
   MKSPK = mkspk/mkspk
+  SERIAL ?= /dev/ttyUSB0
 else
   # Cygwin/MSYS2
   MKSPK = mkspk/mkspk.exe
 endif
 
-SERIAL ?= /dev/ttyUSB0
 
 INC_SPR += \
 	-I$(BUILD) \
@@ -151,7 +153,9 @@ SRC_APP_C += \
 	$(notdir $(wildcard edge_impulse/edge-impulse-sdk/CMSIS/DSP/Source/TransformFunctions/*bit*.c)) \
 	$(notdir $(wildcard edge_impulse/QCBOR/src/*.c)) \
 	$(notdir $(wildcard edge_impulse/mbedtls_hmac_sha256_sw/mbedtls/src/*.c)) \
+	$(notdir $(wildcard edge_impulse/edge-impulse-sdk/tensorflow/lite/c/*.c)) \
 
+$(info $(SRC_APP_C))
 	
 VPATH += edge_impulse/edge-impulse-sdk/porting/sony \
 	edge_impulse/ingestion-sdk-platform/sony-spresense \

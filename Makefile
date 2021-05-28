@@ -101,6 +101,7 @@ CXXFLAGS += $(CFLAGS) \
 
 LIBGCC = "${shell "$(CC)" $(CXXFLAGS) -print-libgcc-file-name}"
 LIBM = "${shell "$(CC)" $(CFLAGS) -print-file-name=libm.a}"
+LIBSTDC = "${shell "$(CC)" $(CFLAGS) -print-file-name=libstdc++.a}"
 
 LDFLAGS = \
 	--entry=__start \
@@ -118,6 +119,7 @@ LDFLAGS = \
 	$(SPRESENSE_SDK)/nuttx/libs/libnuttx.a \
 	$(LIBGCC) \
 	$(LIBM) \
+	$(LIBSTDC) \
 	--end-group \
 	-L$(BUILD) \
 
@@ -125,6 +127,7 @@ LDFLAGS = \
 APPFLAGS += \
 	-DEI_SENSOR_AQ_STREAM=FILE \
 	-DEI_PORTING_SONY_SPRESENSE=1 \
+	-DEIDSP_USE_CMSIS_DSP \
 	-DNDEBUG \
 
 SRC_SPR_CXX += \

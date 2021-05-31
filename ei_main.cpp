@@ -59,6 +59,6 @@ int ei_main() {
 #endif
         printf("]\n");
 
-        // ThisThread::sleep_for(2000);
+        ei_sleep(2000);
     }
 }

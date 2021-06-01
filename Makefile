@@ -222,7 +222,7 @@ $(BUILD)/firmware.spk: $(BUILD) $(BUILD)/firmware.elf $(MKSPK)
 	$(MKSPK) -c 2 $(BUILD)/firmware.elf nuttx $(BUILD)/firmware.spk
 
 flash: $(BUILD)/firmware.spk
-	tools/flash_writer.py -s -c $(SERIAL) -d -b 115200 -n $(BUILD)/firmware.spk
+	tools/flash_writer.py -s -c $(SERIAL) -d -b 921600 -n $(BUILD)/firmware.spk
 
 clean:
 	rm -rf $(BUILD)

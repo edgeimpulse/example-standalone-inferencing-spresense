@@ -28,13 +28,33 @@ This project contains an exported version of the `Sony Spresense SDK` and requir
 
 ## Building the application
 
-1. Build the application by calling make in root directory of the project
+1. Build the application by calling make in the root directory of the project
 
     ```
     $ make
     ```
 
 1. Connect the board to your computer using USB
+
+1. Flash the board
+
+    ```
+    $ make flash
+    ```
+
+### Or build with Docker
+
+1. Build the docker image
+
+    ```
+    $ docker build -t build-spresense .
+    ```
+
+1. Build the application by running the container as follows:
+
+    ```
+    $ docker run --rm -it -v $PWD:/app:delegated build-spresense /bin/bash -c "make -j"
+    ```
 
 1. Flash the board
 

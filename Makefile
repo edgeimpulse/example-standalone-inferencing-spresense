@@ -159,7 +159,7 @@ SRC_APP_C += \
 	$(notdir $(wildcard edge_impulse/edge-impulse-sdk/tensorflow/lite/c/*.c)) \
 
 $(info $(SRC_APP_C))
-	
+
 VPATH += edge_impulse/edge-impulse-sdk/porting/sony \
 	edge_impulse/ingestion-sdk-platform/sony-spresense \
 	edge_impulse/ingestion-sdk-c \
@@ -178,7 +178,7 @@ VPATH += edge_impulse/edge-impulse-sdk/porting/sony \
 	edge_impulse/edge-impulse-sdk/CMSIS/DSP/Source/CommonTables \
 	edge_impulse/edge-impulse-sdk/CMSIS/DSP/Source/TransformFunctions \
 	edge_impulse/tflite-model \
-	
+
 OBJ = $(addprefix $(BUILD)/spr/, $(SRC_SPR_CXX:.cpp=.o))
 OBJ += $(addprefix $(BUILD)/app/, $(SRC_APP_CXX:.cpp=.o))
 OBJ += $(addprefix $(BUILD)/app/, $(SRC_APP_CC:.cc=.o))

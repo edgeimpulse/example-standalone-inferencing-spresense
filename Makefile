@@ -157,8 +157,6 @@ SRC_APP_C += \
 	$(notdir $(wildcard edge_impulse/QCBOR/src/*.c)) \
 	$(notdir $(wildcard edge_impulse/mbedtls_hmac_sha256_sw/mbedtls/src/*.c)) \
 	$(notdir $(wildcard edge_impulse/edge-impulse-sdk/tensorflow/lite/c/*.c)) \
-
-$(info $(SRC_APP_C))
 	
 VPATH += edge_impulse/edge-impulse-sdk/porting/sony \
 	edge_impulse/ingestion-sdk-platform/sony-spresense \
@@ -190,19 +188,24 @@ CXXFLAGS += $(APPFLAGS)
 all: $(BUILD)/firmware.spk
 
 $(BUILD)/%.o: %.c
-	$(CC) $(CXXFLAGS) -c -o $@ $<
+	@$(CC) $(CXXFLAGS) -c -o $@ $<
+	@echo $<
 
 $(BUILD)/spr/%.o: %.cpp
-	$(CXX) $(CXXFLAGS) $(INC_SPR) -c -o $@ $<
+	@$(CXX) $(CXXFLAGS) $(INC_SPR) -c -o $@ $<
+	@echo $<
 
 $(BUILD)/app/%.o: %.cpp
-	$(CXX) $(CXXFLAGS) 	$(INC_APP) -c -o $@ $<
+	@$(CXX) $(CXXFLAGS) 	$(INC_APP) -c -o $@ $<
+	@echo $<
 
 $(BUILD)/app/%.o: %.cc
-	$(CXX) $(CXXFLAGS) 	$(INC_APP) -c -o $@ $<
+	@$(CXX) $(CXXFLAGS) 	$(INC_APP) -c -o $@ $<
+	@echo $<
 
 $(BUILD)/app/%.o: %.c
-	$(CC) $(CFLAGS) 	$(INC_APP) -c -o $@ $<
+	@$(CC) $(CFLAGS) 	$(INC_APP) -c -o $@ $<
+	@echo $<
 
 $(BUILD)/libapp.a: $(SPRESENSE_SDK) $(OBJ)
 	$(AR) rcs $(BUILD)/libapp.a $(OBJ)
@@ -225,4 +228,4 @@ flash: $(BUILD)/firmware.spk
 	tools/flash_writer.py -s -c $(SERIAL) -d -b 921600 -n $(BUILD)/firmware.spk
 
 clean:
-	rm -rf $(BUILD)
+	@rm -rf $(BUILD)

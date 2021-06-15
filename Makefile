@@ -34,10 +34,12 @@ INC_SPR += \
 	-I$(SPRESENSE_SDK)/nuttx/arch/chip \
 	-I$(SPRESENSE_SDK)/nuttx/arch/os \
 	-I$(SPRESENSE_SDK)/sdk/include \
+	-I$(SPRESENSE_SDK)/sdk/modules/include \
 	-I edge_impulse/ingestion-sdk-platform/sony-spresense \
 
 INC_APP += \
 	-I$(BUILD) \
+	-I stdlib \
 	-I edge_impulse \
 	-I edge_impulse/ingestion-sdk-platform/sony-spresense \
 	-I edge_impulse/ingestion-sdk-c \
@@ -122,6 +124,7 @@ LDFLAGS = \
 	$(LIBSTDC) \
 	--end-group \
 	-L$(BUILD) \
+	--print-memory-usage \
 
 # Application flags
 APPFLAGS += \
@@ -151,6 +154,7 @@ SRC_APP_CC += \
 	$(notdir $(wildcard edge_impulse/edge-impulse-sdk/tensorflow/lite/micro/memory_planner/*.cc)) \
 
 SRC_APP_C += \
+	$(notdir $(wildcard stdlib/*.c)) \
 	$(notdir $(wildcard edge_impulse/edge-impulse-sdk/CMSIS/DSP/Source/TransformFunctions/*fft*.c)) \
 	$(notdir $(wildcard edge_impulse/edge-impulse-sdk/CMSIS/DSP/Source/CommonTables/*.c)) \
 	$(notdir $(wildcard edge_impulse/edge-impulse-sdk/CMSIS/DSP/Source/TransformFunctions/*bit*.c)) \
@@ -158,7 +162,8 @@ SRC_APP_C += \
 	$(notdir $(wildcard edge_impulse/mbedtls_hmac_sha256_sw/mbedtls/src/*.c)) \
 	$(notdir $(wildcard edge_impulse/edge-impulse-sdk/tensorflow/lite/c/*.c)) \
 
-VPATH += edge_impulse/edge-impulse-sdk/porting/sony \
+VPATH += stdlib \
+	edge_impulse/edge-impulse-sdk/porting/sony \
 	edge_impulse/ingestion-sdk-platform/sony-spresense \
 	edge_impulse/ingestion-sdk-c \
 	edge_impulse/repl \

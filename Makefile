@@ -217,7 +217,7 @@ $(MKSPK):
 	$(MAKE) -C mkspk
 
 $(BUILD):
-	mkdir $(BUILD)
+	mkdir -p $(BUILD)
 	mkdir -p $(BUILD)/spr
 	mkdir -p $(BUILD)/app
 

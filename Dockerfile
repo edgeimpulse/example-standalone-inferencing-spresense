@@ -15,3 +15,4 @@ RUN apt update && apt install -y \
     && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 RUN pip3 install pyserial
+RUN pip3 install inquirer

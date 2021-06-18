@@ -16,16 +16,17 @@ PLATFORM := $(firstword $(subst _, ,$(shell uname -s 2>/dev/null)))
 ifeq ($(PLATFORM),Darwin)
   # macOS
   MKSPK = mkspk/mkspk
-  SERIAL ?= /dev/cu.SLAB_USBtoUART
 else ifeq ($(PLATFORM),Linux)
   # Linux
   MKSPK = mkspk/mkspk
-  SERIAL ?= /dev/ttyUSB0
+  BAUDRATE ?= 921600
 else
   # Cygwin/MSYS2
   MKSPK = mkspk/mkspk.exe
+  BAUDRATE ?= 921600
 endif
 
+BAUDRATE ?= 115200
 
 INC_SPR += \
 	-I$(BUILD) \
@@ -230,7 +231,7 @@ $(BUILD)/firmware.spk: $(BUILD) $(BUILD)/firmware.elf $(MKSPK)
 	$(MKSPK) -c 2 $(BUILD)/firmware.elf nuttx $(BUILD)/firmware.spk
 
 flash: $(BUILD)/firmware.spk
-	tools/flash_writer.py -s -c $(SERIAL) -d -b 921600 -n $(BUILD)/firmware.spk
+	tools/flash_writer.py -s -d -b $(BAUDRATE) -n $(BUILD)/firmware.spk
 
 clean:
 	@rm -rf $(BUILD)

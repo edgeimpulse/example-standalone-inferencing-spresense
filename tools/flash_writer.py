@@ -43,6 +43,51 @@ import shutil
 import subprocess
 import re
 import xmodem
+import inquirer
+import serial
+import serial.tools.list_ports
+
+ports = list(serial.tools.list_ports.comports())
+count = 0
+
+portList = []
+
+for p in ports:
+    # string = "" + str(count) + " : "
+    # print(string)
+    myorder = "{}"
+    pStr = myorder.format(p)
+    # print(string + pStr)
+    portList.append(pStr)
+    count = count + 1
+
+# print(portList,"\n\n")
+
+ft232r = list(filter(lambda x: 'FT232R' in x, portList))
+
+if len(ft232r) == 1:
+    answers = { 'port': ft232r[0] }
+elif len(portList) != 0:
+    questions = [
+      inquirer.List('port',
+                    message="Select your device",
+                    choices=portList,
+                ),
+    ]
+    answers = inquirer.prompt(questions)
+else:
+    print("\n\rNo connected devices found, exiting...\n\r\n\r")
+    exit(1)
+
+if not answers['port']:
+    exit(1)
+
+# print(ports[x])
+myorder = "{}"
+pStr = answers['port']
+myport = pStr.split(' ', 1)[0]
+
+print('Using device', myport)
 
 import_serial_module = True
 
@@ -243,12 +288,15 @@ class ConfigArgsLoader:
             if args.serial_port is not None:
                 ConfigArgs.SERIAL_PORT = args.serial_port
             else:
-                # Get serial port from the environment
-                port = os.environ.get("CXD56_PORT")
-                if port is not None:
-                    ConfigArgs.SERIAL_PORT = port
+                if myport is not None:
+                    ConfigArgs.SERIAL_PORT = myport
                 else:
-                    print("CXD56_PORT is not set, Use " + ConfigArgs.SERIAL_PORT + ".")
+                    # Get serial port from the environment
+                    port = os.environ.get("CXD56_PORT")
+                    if port is not None:
+                        ConfigArgs.SERIAL_PORT = port
+                    else:
+                        print("CXD56_PORT is not set, Use " + ConfigArgs.SERIAL_PORT + ".")
         else:
             ConfigArgs.PROTOCOL_TYPE = PROTOCOL_TELNET
             if args.server_port is not None:

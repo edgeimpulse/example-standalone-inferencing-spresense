@@ -47,19 +47,19 @@ This project contains an exported version of the `Sony Spresense SDK` and requir
 1. Build the docker image
 
     ```
-    $ docker build -t build-spresense .
+    $ docker build -t spresense-build .
     ```
 
 1. Build the application by running the container as follows:
 
     ```
-    $ docker run --rm -it -v $PWD:/app:delegated build-spresense /bin/bash -c "make -j"
+    $ docker run --rm -it -v $PWD:/app:delegated spresense-build /bin/bash -c "make -j"
     ```
 
 1. Flash the board
 
     ```
-    $ make flash
+    $ docker run --rm -it -v $PWD:/app:delegated --privileged spresense-build /bin/bash -c "make flash"
     ```
 
 ## Serial connection

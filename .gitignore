@@ -1,7 +1,9 @@
 # Directories
 build/
 .vscode/
-
+edge_impulse/edge-impulse-sdk/
+edge_impulse/model-parameters/
+edge_impulse/tflite-model/
 
 # Prerequisites
 *.d

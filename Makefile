@@ -42,11 +42,6 @@ INC_APP += \
 	-I$(BUILD) \
 	-I stdlib \
 	-I edge_impulse \
-	-I edge_impulse/ingestion-sdk-platform/sony-spresense \
-	-I edge_impulse/ingestion-sdk-c \
-	-I edge_impulse/repl \
-	-I edge_impulse/QCBOR/inc \
-	-I edge_impulse/mbedtls_hmac_sha256_sw \
 	-I edge_impulse/edge-impulse-sdk \
 	-I edge_impulse/edge-impulse-sdk/classifier \
 	-I edge_impulse/edge-impulse-sdk/porting \
@@ -64,6 +59,7 @@ INC_APP += \
 	-I edge_impulse/edge-impulse-sdk/tensorflow/lite/micro/kernels \
 	-I edge_impulse/edge-impulse-sdk/tensorflow/lite/scheme \
 	-I edge_impulse/edge-impulse-sdk/tensorflow/lite/c \
+	-I edge_impulse/edge-impulse-sdk/tensorflow/lite/core/api/ \
 	-I edge_impulse/model-parameters \
 	-I edge_impulse/tflite-model \
 
@@ -132,6 +128,7 @@ APPFLAGS += \
 	-DEI_SENSOR_AQ_STREAM=FILE \
 	-DEI_PORTING_SONY_SPRESENSE=1 \
 	-DEIDSP_USE_CMSIS_DSP \
+	-DEIDSP_QUANTIZE_FILTERBANK=0 \
 	-DNDEBUG \
 
 SRC_SPR_CXX += \
@@ -142,9 +139,6 @@ SRC_APP_CXX += \
 	$(notdir $(wildcard edge_impulse/edge-impulse-sdk/porting/sony/*.cpp)) \
 	$(notdir $(wildcard edge_impulse/edge-impulse-sdk/dsp/dct/*.cpp)) \
 	$(notdir $(wildcard edge_impulse/edge-impulse-sdk/dsp/kissfft/*.cpp)) \
-	$(notdir $(wildcard edge_impulse/ingestion-sdk-platform/sony-spresense/*.cpp)) \
-	$(notdir $(wildcard edge_impulse/ingestion-sdk-c/*.cpp)) \
-	$(notdir $(wildcard edge_impulse/repl/*.cpp)) \
 	$(notdir $(wildcard edge_impulse/tflite-model/*.cpp)) \
 
 SRC_APP_CC += \
@@ -153,22 +147,18 @@ SRC_APP_CC += \
 	$(notdir $(wildcard edge_impulse/edge-impulse-sdk/tensorflow/lite/micro/*.cc)) \
 	$(notdir $(wildcard edge_impulse/edge-impulse-sdk/tensorflow/lite/micro/kernels/*.cc)) \
 	$(notdir $(wildcard edge_impulse/edge-impulse-sdk/tensorflow/lite/micro/memory_planner/*.cc)) \
+	$(notdir $(wildcard edge_impulse/edge-impulse-sdk/tensorflow/lite/core/api/*.cc)) \
 
 SRC_APP_C += \
 	$(notdir $(wildcard stdlib/*.c)) \
 	$(notdir $(wildcard edge_impulse/edge-impulse-sdk/CMSIS/DSP/Source/TransformFunctions/*fft*.c)) \
 	$(notdir $(wildcard edge_impulse/edge-impulse-sdk/CMSIS/DSP/Source/CommonTables/*.c)) \
 	$(notdir $(wildcard edge_impulse/edge-impulse-sdk/CMSIS/DSP/Source/TransformFunctions/*bit*.c)) \
-	$(notdir $(wildcard edge_impulse/QCBOR/src/*.c)) \
 	$(notdir $(wildcard edge_impulse/mbedtls_hmac_sha256_sw/mbedtls/src/*.c)) \
 	$(notdir $(wildcard edge_impulse/edge-impulse-sdk/tensorflow/lite/c/*.c)) \
 
 VPATH += stdlib \
 	edge_impulse/edge-impulse-sdk/porting/sony \
-	edge_impulse/ingestion-sdk-platform/sony-spresense \
-	edge_impulse/ingestion-sdk-c \
-	edge_impulse/repl \
-	edge_impulse/QCBOR/src \
 	edge_impulse/edge-impulse-sdk/dsp/dct \
 	edge_impulse/edge-impulse-sdk/dsp/kissfft \
 	edge_impulse/edge-impulse-sdk/tensorflow/lite/kernels \
@@ -177,7 +167,7 @@ VPATH += stdlib \
 	edge_impulse/edge-impulse-sdk/tensorflow/lite/micro/kernels \
 	edge_impulse/edge-impulse-sdk/tensorflow/lite/micro/memory_planner \
 	edge_impulse/edge-impulse-sdk/tensorflow/lite/c/ \
-	edge_impulse/mbedtls_hmac_sha256_sw/mbedtls/src \
+	edge_impulse/edge-impulse-sdk/tensorflow/lite/core/api/ \
 	edge_impulse/edge-impulse-sdk/CMSIS/DSP/Source/TransformFunctions \
 	edge_impulse/edge-impulse-sdk/CMSIS/DSP/Source/CommonTables \
 	edge_impulse/edge-impulse-sdk/CMSIS/DSP/Source/TransformFunctions \

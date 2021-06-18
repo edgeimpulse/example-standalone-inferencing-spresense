@@ -1,5 +1,5 @@
 /* Edge Impulse inferencing library
- * Copyright (c) 2021 EdgeImpulse Inc.
+ * Copyright (c) 2020 EdgeImpulse Inc.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,26 +20,18 @@
  * SOFTWARE.
  */
 
-#ifndef _EDGE_IMPULSE_MODEL_TYPES_H_
-#define _EDGE_IMPULSE_MODEL_TYPES_H_
+#pragma once
 
-#include <stdint.h>
-#include "edge-impulse-sdk/dsp/numpy.hpp"
+/* Function prototypes ----------------------------------------------------- */
+void ei_command_line_handle(void);
+bool ei_user_invoke_stop_lib(void);
+void ei_serial_setup(void);
+void ei_printf(const char *format, ...);
+void ei_printf_ble(const char *format, ...);
+void ei_printf_float(float f);
+void ei_printfloat(int n_decimals, int n, ...);
 
-typedef struct {
-    size_t n_output_features;
-    int (*extract_fn)(ei::signal_t *signal, ei::matrix_t *output_matrix, void *config, const float frequency);
-    void *config;
-    uint8_t *axes;
-    size_t axes_size;
-} ei_model_dsp_t;
+void ei_write_string(char *data, int length);
+void ei_putc(char cChar);
+char ei_getchar();
 
-typedef struct {
-    size_t n_output_features;
-    int (*extract_fn)(ei::signal_i16_t *signal, ei::matrix_i32_t *output_matrix, void *config, const float frequency);
-    void *config;
-    uint8_t *axes;
-    size_t axes_size;
-} ei_model_dsp_i16_t;
-
-#endif // _EDGE_IMPULSE_MODEL_TYPES_H_

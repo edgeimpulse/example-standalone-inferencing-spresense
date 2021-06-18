@@ -19,33 +19,18 @@
 * SOFTWARE.
 */
 
-#ifndef _EI_CLASSIFIER_DSP_BLOCKS_H_
-#define _EI_CLASSIFIER_DSP_BLOCKS_H_
+#ifndef _EI_CLASSIFIER_ANOMALY_TYPES_HEADER_H_
+#define _EI_CLASSIFIER_ANOMALY_TYPES_HEADER_H_
 
-#include "model-parameters/model_metadata.h"
-#include "edge-impulse-sdk/classifier/ei_run_dsp.h"
-#include "edge-impulse-sdk/classifier/ei_model_types.h"
+#define EI_CLASSIFIER_HAS_ANOMALY    1
 
-const size_t ei_dsp_blocks_size = 1;
-ei_model_dsp_t ei_dsp_blocks[ei_dsp_blocks_size] = {
-    { // DSP block 3
-        33,
-        &extract_spectral_analysis_features,
-        (void*)&ei_dsp_config_3,
-        ei_dsp_config_3_axes,
-        ei_dsp_config_3_axes_size
-    }
-};
+const uint16_t EI_CLASSIFIER_ANOM_AXIS[]  { 0, 11, 22 };
+#define EI_CLASSIFIER_ANOM_AXIS_SIZE      3
+#define EI_CLASSIFIER_ANOM_CLUSTER_COUNT  32
 
-const size_t ei_dsp_blocks_i16_size = 1;
-ei_model_dsp_i16_t ei_dsp_blocks_i16[ei_dsp_blocks_i16_size] = {
-    { // DSP block 3
-        33,
-        &extract_spectral_analysis_features,
-        (void*)&ei_dsp_config_3,
-        ei_dsp_config_3_axes,
-        ei_dsp_config_3_axes_size
-    }
-};
+typedef struct {
+float centroid[EI_CLASSIFIER_ANOM_AXIS_SIZE];
+float max_error;
+} ei_classifier_anom_cluster_t;
 
-#endif // _EI_CLASSIFIER_DSP_BLOCKS_H_
+#endif // _EI_CLASSIFIER_ANOMALY_TYPES_HEADER_H_

@@ -1,7 +1,6 @@
 # Edge Impulse Example: stand-alone inferencing (Sony's Spresense)
 
-This runs an exported impulse on Sony's Spresense board. See the documentation at [Running your impulse locally (Spresense)](https://docs.edgeimpulse.com/docs/running-your-impulse-spresense).
-
+This repository runs an exported impulse on the Spresense by Sony development board. See the documentation at [Running your impulse locally (Spresense)](https://docs.edgeimpulse.com/docs/running-your-impulse-spresense).
 
 ## Requirements
 
@@ -11,7 +10,7 @@ Purchase Sony's Spresense main board, available [here](https://developer.sony.co
 
 ### Software
 
-This project contains an exported version of the `Sony Spresense SDK` and requires following tools:
+This project contains an exported version of the `Sony Spresense SDK` and requires the following tools:
 
 * [Node.js 12](https://nodejs.org/en/download/) or higher.  
 * [Python 3](https://www.python.org/download/releases/3.0/).  
@@ -26,7 +25,7 @@ This project contains an exported version of the `Sony Spresense SDK` and requir
 
 ## Building the application
 
-1. Build the application by calling make in the root directory of the project:  
+1. Build the application by calling `make` in the root directory of the project:  
     ```
     $ make
     ```
@@ -38,7 +37,7 @@ This project contains an exported version of the `Sony Spresense SDK` and requir
 
 ### Or build with Docker
 
-1. Build the docker image:  
+1. Build the Docker image:  
     ```
     $ docker build -t spresense-build .
     ```

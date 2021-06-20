@@ -1,7 +1,7 @@
 
-### Import EI SDK and Machine Learning Model
+### Import the Edge Impulse SDK and Machine Learning Model
 
-Place following folders in this directory
+Place the following folders in this directory:
 
 1. edge-impulse-sdk
 1. model-parameters

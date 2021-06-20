@@ -13,7 +13,6 @@ Purchase Sony's Spresense main board, available [here](https://developer.sony.co
 This project contains an exported version of the `Sony Spresense SDK` and requires the following tools:
 
 * [Edge Impulse CLI](https://docs.edgeimpulse.com/docs/cli-installation).  
-* [CMake](https://cmake.org) version 3.12.1 or higher.  
 * [GNU Make](https://www.gnu.org/software/make/).  
 * [GNU ARM Embedded Toolchain 8-2018-q4-major](https://developer.arm.com/tools-and-software/open-source-software/developer-tools/gnu-toolchain/gnu-rm/downloads) - make sure `arm-none-eabi-gcc` is in your PATH.  
 

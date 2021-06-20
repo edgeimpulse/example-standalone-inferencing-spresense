@@ -7,7 +7,7 @@ This runs an exported impulse on Sony's Spresense board. See the documentation a
 
 ### Hardware
 
-The Sony spresense main board available [here](https://developer.sony.com/develop/spresense/buy-now).
+Purchase Sony's Spresense main board, available [here](https://developer.sony.com/develop/spresense/buy-now).
 
 ### Software
 

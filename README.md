@@ -41,7 +41,7 @@ This project contains an exported version of the `Sony Spresense SDK` and requir
     ```
     $ docker build -t spresense-build .
     ```
-1. Build the application by running the container as follows:
+1. Build the application by running the container as follows:  
     **Windows**
     ```
     $ docker run --rm -it -v "%cd%":/app spresense-build /bin/bash -c "make -j"

@@ -12,16 +12,10 @@ Purchase Sony's Spresense main board, available [here](https://developer.sony.co
 
 This project contains an exported version of the `Sony Spresense SDK` and requires the following tools:
 
-* [Node.js 12](https://nodejs.org/en/download/) or higher.  
-* [Python 3](https://www.python.org/download/releases/3.0/).  
+* [Edge Impulse CLI](https://docs.edgeimpulse.com/docs/cli-installation).  
 * [CMake](https://cmake.org) version 3.12.1 or higher.  
 * [GNU Make](https://www.gnu.org/software/make/).  
 * [GNU ARM Embedded Toolchain 8-2018-q4-major](https://developer.arm.com/tools-and-software/open-source-software/developer-tools/gnu-toolchain/gnu-rm/downloads) - make sure `arm-none-eabi-gcc` is in your PATH.  
-* [Edge Impulse CLI](https://docs.edgeimpulse.com/docs/cli-installation).  
-    You can install this via npm:
-    ```
-    $ npm install edge-impulse-cli@latest -g
-    ```
 
 ## Building the application
 
@@ -63,3 +57,13 @@ This project contains an exported version of the `Sony Spresense SDK` and requir
 ## Serial connection
 
 Use `screen` or `minicom` to set up a serial connection over USB. Default UART settings are used (115200 baud, 8N1).
+
+## Troubleshooting
+
+**undefined reference to `_impure_ptr'**
+
+Make sure you build with [GNU ARM Embedded Toolchain 8-2018-q4-major](https://developer.arm.com/tools-and-software/open-source-software/developer-tools/gnu-toolchain/gnu-rm/downloads). If you have multiple toolchains installed, you can override the compiler via:
+
+```
+$ CC=~/toolchains/gcc-arm-none-eabi-8-2018-q4-major/bin/arm-none-eabi-gcc CXX=~/toolchains/gcc-arm-none-eabi-8-2018-q4-major/bin/arm-none-eabi-g++ make -j
+```

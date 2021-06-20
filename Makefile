@@ -36,7 +36,6 @@ INC_SPR += \
 	-I$(SPRESENSE_SDK)/nuttx/arch/os \
 	-I$(SPRESENSE_SDK)/sdk/include \
 	-I$(SPRESENSE_SDK)/sdk/modules/include \
-	-I edge_impulse/ingestion-sdk-platform/sony-spresense \
 
 INC_APP += \
 	-I$(BUILD) \

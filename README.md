@@ -27,7 +27,7 @@ This project contains an exported version of the `Sony Spresense SDK` and requir
 
 1. Build the application by calling `make` in the root directory of the project:  
     ```
-    $ make
+    $ make -j
     ```
 1. Connect the board to your computer using USB.  
 1. Flash the board:  
@@ -41,13 +41,23 @@ This project contains an exported version of the `Sony Spresense SDK` and requir
     ```
     $ docker build -t spresense-build .
     ```
-1. Build the application by running the container as follows:  
+1. Build the application by running the container as follows:
+    **Windows**
+    ```
+    $ docker run --rm -it -v "%cd%":/app spresense-build /bin/bash -c "make -j"
+    ```
+    **Linux, macOS**
     ```
     $ docker run --rm -it -v $PWD:/app:delegated spresense-build /bin/bash -c "make -j"
     ```
-1. Flash the board:  
+1. Connect the board to your computer using USB. 
+1. Flash the board:
     ```
-    $ docker run --rm -it -v $PWD:/app:delegated --privileged spresense-build /bin/bash -c "make flash"
+    $ make flash
+    ```
+    Or if you don't have `make` installed:
+    ```
+    $ tools/flash_writer.py -s -d -b 115200 -n build/firmware.spk
     ```
 
 ## Serial connection

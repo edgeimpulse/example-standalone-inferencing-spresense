@@ -63,10 +63,10 @@ for p in ports:
 
 # print(portList,"\n\n")
 
-ft232r = list(filter(lambda x: 'FT232R' in x, portList))
+cp2102n = list(filter(lambda x: 'CP2102N' in x, portList))
 
-if len(ft232r) == 1:
-    answers = { 'port': ft232r[0] }
+if len(cp2102n) == 1:
+    answers = { 'port': cp2102n[0] }
 elif len(portList) != 0:
     questions = [
       inquirer.List('port',

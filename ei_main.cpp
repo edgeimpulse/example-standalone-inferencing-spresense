@@ -25,9 +25,9 @@
 #include "ei_classifier_porting.h"
 #include "numpy.hpp"
 
-static const float features[] = {    
-
-
+static const float features[] = {
+    // copy raw features here (for example from the 'Live classification' page)
+    // see https://docs.edgeimpulse.com/docs/running-your-impulse-spresense
 };
 
 

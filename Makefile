@@ -129,6 +129,9 @@ APPFLAGS += \
 	-DEIDSP_USE_CMSIS_DSP \
 	-DEIDSP_QUANTIZE_FILTERBANK=0 \
 	-DNDEBUG \
+	-DEI_CLASSIFIER_TFLITE_ENABLE_CMSIS_NN \
+	-DARM_MATH_LOOPUNROLL \
+	-DEIDSP_LOAD_CMSIS_DSP_SOURCES=1 \
 
 SRC_SPR_CXX += \
 	main.cpp \
@@ -153,6 +156,15 @@ SRC_APP_C += \
 	$(notdir $(wildcard edge_impulse/edge-impulse-sdk/CMSIS/DSP/Source/TransformFunctions/*fft*.c)) \
 	$(notdir $(wildcard edge_impulse/edge-impulse-sdk/CMSIS/DSP/Source/CommonTables/*.c)) \
 	$(notdir $(wildcard edge_impulse/edge-impulse-sdk/CMSIS/DSP/Source/TransformFunctions/*bit*.c)) \
+	$(notdir $(wildcard edge_impulse/edge-impulse-sdk/CMSIS/NN/Source/ActivationFunctions/*.c)) \
+	$(notdir $(wildcard edge_impulse/edge-impulse-sdk/CMSIS/NN/Source/BasicMathFunctions/*.c)) \
+	$(notdir $(wildcard edge_impulse/edge-impulse-sdk/CMSIS/NN/Source/ConcatenationFunctions/*.c)) \
+	$(notdir $(wildcard edge_impulse/edge-impulse-sdk/CMSIS/NN/Source/ConvolutionFunctions/*.c)) \
+	$(notdir $(wildcard edge_impulse/edge-impulse-sdk/CMSIS/NN/Source/FullyConnectedFunctions/*.c)) \
+	$(notdir $(wildcard edge_impulse/edge-impulse-sdk/CMSIS/NN/Source/NNSupportFunctions/*.c)) \
+	$(notdir $(wildcard edge_impulse/edge-impulse-sdk/CMSIS/NN/Source/PoolingFunctions/*.c)) \
+	$(notdir $(wildcard edge_impulse/edge-impulse-sdk/CMSIS/NN/Source/ReshapeFunctions/*.c)) \
+	$(notdir $(wildcard edge_impulse/edge-impulse-sdk/CMSIS/NN/Source/SoftmaxFunctions/*.c)) \
 	$(notdir $(wildcard edge_impulse/mbedtls_hmac_sha256_sw/mbedtls/src/*.c)) \
 	$(notdir $(wildcard edge_impulse/edge-impulse-sdk/tensorflow/lite/c/*.c)) \
 
@@ -170,6 +182,15 @@ VPATH += stdlib \
 	edge_impulse/edge-impulse-sdk/CMSIS/DSP/Source/TransformFunctions \
 	edge_impulse/edge-impulse-sdk/CMSIS/DSP/Source/CommonTables \
 	edge_impulse/edge-impulse-sdk/CMSIS/DSP/Source/TransformFunctions \
+	edge_impulse/edge-impulse-sdk/CMSIS/NN/Source/ActivationFunctions \
+	edge_impulse/edge-impulse-sdk/CMSIS/NN/Source/BasicMathFunctions \
+	edge_impulse/edge-impulse-sdk/CMSIS/NN/Source/ConcatenationFunctions \
+	edge_impulse/edge-impulse-sdk/CMSIS/NN/Source/ConvolutionFunctions \
+	edge_impulse/edge-impulse-sdk/CMSIS/NN/Source/FullyConnectedFunctions \
+	edge_impulse/edge-impulse-sdk/CMSIS/NN/Source/NNSupportFunctions \
+	edge_impulse/edge-impulse-sdk/CMSIS/NN/Source/PoolingFunctions \
+	edge_impulse/edge-impulse-sdk/CMSIS/NN/Source/ReshapeFunctions \
+	edge_impulse/edge-impulse-sdk/CMSIS/NN/Source/SoftmaxFunctions \
 	edge_impulse/tflite-model \
 
 OBJ = $(addprefix $(BUILD)/spr/, $(SRC_SPR_CXX:.cpp=.o))

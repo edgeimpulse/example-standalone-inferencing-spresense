@@ -14,7 +14,7 @@ This project contains an exported version of the `Sony Spresense SDK` and requir
 
 * [Edge Impulse CLI](https://docs.edgeimpulse.com/docs/cli-installation).
 * [GNU Make](https://www.gnu.org/software/make/).
-* [GNU ARM Embedded Toolchain 8-2018-q4-major](https://developer.arm.com/tools-and-software/open-source-software/developer-tools/gnu-toolchain/gnu-rm/downloads) - make sure `arm-none-eabi-gcc` is in your PATH.
+* [GNU ARM Embedded Toolchain 9-2019-q4-major](https://developer.arm.com/tools-and-software/open-source-software/developer-tools/gnu-toolchain/gnu-rm/downloads) - make sure `arm-none-eabi-gcc` is in your PATH.
 
 ## Building the application
 
@@ -57,12 +57,12 @@ This project contains an exported version of the `Sony Spresense SDK` and requir
 
 Use `screen` or `minicom` to set up a serial connection over USB. Default UART settings are used (115200 baud, 8N1).
 
-## Troubleshooting
+## Tips
 
-**undefined reference to `_impure_ptr'**
+### Override the ARM GNU Toolchain
 
-Make sure you build with [GNU ARM Embedded Toolchain 8-2018-q4-major](https://developer.arm.com/tools-and-software/open-source-software/developer-tools/gnu-toolchain/gnu-rm/downloads). If you have multiple toolchains installed, you can override the compiler via:
+If you have multiple toolchains installed, you can override the compiler via:
 
 ```
-$ CROSS_COMPILE=~/toolchains/gcc-arm-none-eabi-8-2018-q4-major/bin/arm-none-eabi- make -j
+$ CROSS_COMPILE=~/toolchains/gcc-arm-none-eabi-9-2019-q4-major/bin/arm-none-eabi- make -j
 ```

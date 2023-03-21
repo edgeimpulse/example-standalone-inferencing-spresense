@@ -64,6 +64,16 @@ int ei_main() {
         ei_printf("Predictions (DSP: %d ms., Classification: %d ms., Anomaly: %d ms.): \n",
             result.timing.dsp, result.timing.classification, result.timing.anomaly);
 
+#if EI_CLASSIFIER_OBJECT_DETECTION == 1
+    for (size_t ix = 0; ix < EI_CLASSIFIER_OBJECT_DETECTION_COUNT; ix++) {
+        auto bb = result.bounding_boxes[ix]; 
+        if (bb.value == 0) {
+            continue;
+        }
+
+        ei_printf("%s (%f) [ x: %u, y: %u, width: %u, height: %u ]\n", bb.label, bb.value, bb.x, bb.y, bb.width, bb.height);
+    }
+#else
         // print the predictions
         ei_printf("[");
         for (size_t ix = 0; ix < EI_CLASSIFIER_LABEL_COUNT; ix++) {
@@ -80,6 +90,7 @@ int ei_main() {
         printf("%.3f", result.anomaly);
 #endif
         printf("]\n");
+#endif
 
         ei_sleep(2000);
     }

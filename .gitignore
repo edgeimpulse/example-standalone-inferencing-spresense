@@ -18,3 +18,5 @@ edge_impulse/tflite-model/
 *.ilk
 *.map
 *.exp
+
+*.pyc

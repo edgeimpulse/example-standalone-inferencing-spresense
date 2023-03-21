@@ -95,6 +95,8 @@ CXXFLAGS += $(CFLAGS) \
 	-std=gnu++11 \
 	-fno-rtti \
 	-fno-use-cxa-atexit \
+	-nostartfiles \
+	-nodefaultlibs \
 	-fno-inline-functions
 
 LIBGCC = "${shell "$(CC)" $(CXXFLAGS) -print-libgcc-file-name}"
@@ -103,8 +105,6 @@ LIBSTDC = "${shell "$(CC)" $(CFLAGS) -print-file-name=libstdc++.a}"
 
 LDFLAGS = \
 	--entry=__start \
-	-nostartfiles \
-	-nodefaultlibs \
 	-T$(SPRESENSE_SDK)/nuttx/scripts/ramconfig.ld \
 	--gc-sections \
 	-Map=$(BUILD)/output.map \

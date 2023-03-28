@@ -4,8 +4,8 @@
 
 
 /* Extern reference -------------------------------------------------------- */
-extern int ei_main();
 extern void ei_printf(const char *format, ...);
+extern int main_profiling(int argc, char **argv);
 
 extern "C" {
 
@@ -57,7 +57,7 @@ extern "C" int spresense_main(void)
     up_cxxinitialize();
 #endif
     boardctl(BOARDIOC_INIT, 0);
-    ei_main();
+    main_profiling(0,0);
     return 0;
 }
 

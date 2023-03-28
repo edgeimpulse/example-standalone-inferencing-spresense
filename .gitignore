@@ -20,3 +20,5 @@ edge_impulse/tflite-model/
 *.exp
 
 *.pyc
+
+.DS_Store

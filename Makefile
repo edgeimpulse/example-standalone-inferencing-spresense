@@ -137,7 +137,7 @@ SRC_SPR_CXX += \
 	main.cpp \
 
 SRC_APP_CXX += \
-	ei_main.cpp \
+	ei_profiling.cpp \
 	$(notdir $(wildcard edge_impulse/edge-impulse-sdk/porting/sony/*.cpp)) \
 	$(notdir $(wildcard edge_impulse/edge-impulse-sdk/dsp/dct/*.cpp)) \
 	$(notdir $(wildcard edge_impulse/edge-impulse-sdk/dsp/kissfft/*.cpp)) \

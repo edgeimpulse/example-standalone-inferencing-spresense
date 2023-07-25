@@ -36,11 +36,13 @@ INC_SPR += \
 	-I$(SPRESENSE_SDK)/nuttx/arch/os \
 	-I$(SPRESENSE_SDK)/sdk/include \
 	-I$(SPRESENSE_SDK)/sdk/modules/include \
+	-I edge_impulse \
 
 INC_APP += \
 	-I$(BUILD) \
 	-I stdlib \
 	-I edge_impulse \
+	-I edge_impulse/model-parameters \
 	-I edge_impulse/edge-impulse-sdk \
 	-I edge_impulse/edge-impulse-sdk/classifier \
 	-I edge_impulse/edge-impulse-sdk/porting \
@@ -58,8 +60,7 @@ INC_APP += \
 	-I edge_impulse/edge-impulse-sdk/tensorflow/lite/micro/kernels \
 	-I edge_impulse/edge-impulse-sdk/tensorflow/lite/scheme \
 	-I edge_impulse/edge-impulse-sdk/tensorflow/lite/c \
-	-I edge_impulse/edge-impulse-sdk/tensorflow/lite/core/api/ \
-	-I edge_impulse/model-parameters \
+	-I edge_impulse/edge-impulse-sdk/tensorflow/lite/core/api \
 	-I edge_impulse/tflite-model \
 
 CFLAGS += \
@@ -87,25 +88,28 @@ CFLAGS += \
 	-Wno-write-strings \
 	-Wno-sign-compare \
 	-Wunused-function \
+	-Wno-unused-value \
+	-Werror=return-type \
 	-fno-delete-null-pointer-checks \
 	-fomit-frame-pointer \
-	-O2 \
+	-O1 \
 
 CXXFLAGS += $(CFLAGS) \
 	-std=gnu++11 \
-	-fno-rtti \
-	-fno-use-cxa-atexit \
 	-nostartfiles \
 	-nodefaultlibs \
+	-fno-rtti \
+	-fno-use-cxa-atexit \
 	-fno-inline-functions
 
 LIBGCC = "${shell "$(CC)" $(CXXFLAGS) -print-libgcc-file-name}"
 LIBM = "${shell "$(CC)" $(CFLAGS) -print-file-name=libm.a}"
-LIBSTDC = "${shell "$(CC)" $(CFLAGS) -print-file-name=libstdc++.a}"
+#LIBSTDC = libstdc++.a
 
 LDFLAGS = \
 	--entry=__start \
 	-T$(SPRESENSE_SDK)/nuttx/scripts/ramconfig.ld \
+	--defsym __stack=_vectors+1179648 \
 	--gc-sections \
 	-Map=$(BUILD)/output.map \
 	-o $(BUILD)/firmware.elf \
@@ -114,9 +118,23 @@ LDFLAGS = \
 	-u board_timerhook \
 	$(BUILD)/libapp.a \
 	$(SPRESENSE_SDK)/nuttx/libs/libapps.a \
-	$(SPRESENSE_SDK)/nuttx/libs/libnuttx.a \
+	$(SPRESENSE_SDK)/nuttx/libs/libarch.a \
+	$(SPRESENSE_SDK)/nuttx/libs/libaudio.a \
+	$(SPRESENSE_SDK)/nuttx/libs/libbinfmt.a \
+	$(SPRESENSE_SDK)/nuttx/libs/libboard.a \
+	$(SPRESENSE_SDK)/nuttx/libs/libboards.a \
+	$(SPRESENSE_SDK)/nuttx/libs/libc.a \
+	$(SPRESENSE_SDK)/nuttx/libs/libdrivers.a \
+	$(SPRESENSE_SDK)/nuttx/libs/libfs.a \
+	$(SPRESENSE_SDK)/nuttx/libs/libgcc.a \
+	$(SPRESENSE_SDK)/nuttx/libs/libm.a \
+	$(SPRESENSE_SDK)/nuttx/libs/libmm.a \
+	$(SPRESENSE_SDK)/nuttx/libs/libmodules.a \
+	$(SPRESENSE_SDK)/nuttx/libs/libnet.a \
+	$(SPRESENSE_SDK)/nuttx/libs/libnnablart.a \
+	$(SPRESENSE_SDK)/nuttx/libs/libsched.a \
+	$(SPRESENSE_SDK)/nuttx/libs/libxx.a \
 	$(LIBGCC) \
-	$(LIBM) \
 	$(LIBSTDC) \
 	--end-group \
 	-L$(BUILD) \
@@ -129,7 +147,8 @@ APPFLAGS += \
 	-DEIDSP_USE_CMSIS_DSP \
 	-DEIDSP_QUANTIZE_FILTERBANK=0 \
 	-DNDEBUG \
-	-DEI_CLASSIFIER_TFLITE_ENABLE_CMSIS_NN \
+	-DEI_CLASSIFIER_TFLITE_ENABLE_CMSIS_NN=1 \
+	-DEI_CLASSIFIER_TFLITE_LOAD_CMSIS_NN_SOURCES=1 \
 	-DARM_MATH_LOOPUNROLL \
 	-DEIDSP_LOAD_CMSIS_DSP_SOURCES=1 \
 
@@ -165,12 +184,14 @@ SRC_APP_C += \
 	$(notdir $(wildcard edge_impulse/edge-impulse-sdk/CMSIS/NN/Source/PoolingFunctions/*.c)) \
 	$(notdir $(wildcard edge_impulse/edge-impulse-sdk/CMSIS/NN/Source/ReshapeFunctions/*.c)) \
 	$(notdir $(wildcard edge_impulse/edge-impulse-sdk/CMSIS/NN/Source/SoftmaxFunctions/*.c)) \
+	$(notdir $(wildcard edge_impulse/edge-impulse-sdk/CMSIS/NN/Source/SVDFunctions/*.c)) \
 	$(notdir $(wildcard edge_impulse/mbedtls_hmac_sha256_sw/mbedtls/src/*.c)) \
 	$(notdir $(wildcard edge_impulse/edge-impulse-sdk/tensorflow/lite/c/*.c)) \
 
 VPATH += stdlib \
 	edge_impulse/edge-impulse-sdk/porting/sony \
 	edge_impulse/edge-impulse-sdk/dsp/dct \
+	edge_impulse/edge-impulse-sdk/dsp/image \
 	edge_impulse/edge-impulse-sdk/dsp/kissfft \
 	edge_impulse/edge-impulse-sdk/tensorflow/lite/kernels \
 	edge_impulse/edge-impulse-sdk/tensorflow/lite/kernels/internal \
@@ -191,9 +212,11 @@ VPATH += stdlib \
 	edge_impulse/edge-impulse-sdk/CMSIS/NN/Source/PoolingFunctions \
 	edge_impulse/edge-impulse-sdk/CMSIS/NN/Source/ReshapeFunctions \
 	edge_impulse/edge-impulse-sdk/CMSIS/NN/Source/SoftmaxFunctions \
+	edge_impulse/edge-impulse-sdk/CMSIS/NN/Source/SVDFunctions \
 	edge_impulse/tflite-model \
 
 OBJ = $(addprefix $(BUILD)/spr/, $(SRC_SPR_CXX:.cpp=.o))
+OBJ += $(addprefix $(BUILD)/spr/, $(SRC_SPR_C:.c=.o))
 OBJ += $(addprefix $(BUILD)/app/, $(SRC_APP_CXX:.cpp=.o))
 OBJ += $(addprefix $(BUILD)/app/, $(SRC_APP_CC:.cc=.o))
 OBJ += $(addprefix $(BUILD)/app/, $(SRC_APP_C:.c=.o))
@@ -209,6 +232,10 @@ $(BUILD)/%.o: %.c
 
 $(BUILD)/spr/%.o: %.cpp
 	@"$(CXX)" $(CXXFLAGS) $(INC_SPR) -c -o $@ $<
+	@echo $<
+
+$(BUILD)/spr/%.o: %.c
+	@"$(CC)" $(CFLAGS) $(INC_SPR) -c -o $@ $<
 	@echo $<
 
 $(BUILD)/app/%.o: %.cpp

@@ -37,6 +37,7 @@ INC_SPR += \
 	-I$(SPRESENSE_SDK)/sdk/include \
 	-I$(SPRESENSE_SDK)/sdk/modules/include \
 	-I edge_impulse \
+	-I edge_impulse/ingestion-sdk-platform/peripheral \
 
 INC_APP += \
 	-I$(BUILD) \
@@ -62,6 +63,7 @@ INC_APP += \
 	-I edge_impulse/edge-impulse-sdk/tensorflow/lite/c \
 	-I edge_impulse/edge-impulse-sdk/tensorflow/lite/core/api \
 	-I edge_impulse/tflite-model \
+	-I edge_impulse/ingestion-sdk-platform/peripheral \
 
 CFLAGS += \
 	-DCONFIG_WCHAR_BUILTIN \
@@ -104,7 +106,7 @@ CXXFLAGS += $(CFLAGS) \
 
 LIBGCC = "${shell "$(CC)" $(CXXFLAGS) -print-libgcc-file-name}"
 LIBM = "${shell "$(CC)" $(CFLAGS) -print-file-name=libm.a}"
-#LIBSTDC = libstdc++.a
+LIBSTDC = libstdc++.a
 
 LDFLAGS = \
 	--entry=__start \
@@ -154,6 +156,9 @@ APPFLAGS += \
 
 SRC_SPR_CXX += \
 	main.cpp \
+
+SRC_SPR_C += \
+	ei_board.c \
 
 SRC_APP_CXX += \
 	ei_main.cpp \
@@ -214,6 +219,7 @@ VPATH += stdlib \
 	edge_impulse/edge-impulse-sdk/CMSIS/NN/Source/SoftmaxFunctions \
 	edge_impulse/edge-impulse-sdk/CMSIS/NN/Source/SVDFunctions \
 	edge_impulse/tflite-model \
+	edge_impulse/ingestion-sdk-platform/peripheral \
 
 OBJ = $(addprefix $(BUILD)/spr/, $(SRC_SPR_CXX:.cpp=.o))
 OBJ += $(addprefix $(BUILD)/spr/, $(SRC_SPR_C:.c=.o))
